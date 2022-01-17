@@ -6,6 +6,13 @@ from movies.models import Movie, Review
 
 
 class MovieTestCase(TestCase):
+    """Tests cases for movies.models.Movie
+
+    Attributes
+    ----------
+    ensemble_title : str
+        Title for test data movie
+    """
     ensemble_title = "Ensemble Force"
 
     def setUp(self):

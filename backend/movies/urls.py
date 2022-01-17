@@ -6,8 +6,8 @@ from movies import views
 # /api/reviews GET, POST, DELETE
 
 urlpatterns = [
-    path("movies", views.MovieListView.as_view()),
-    path("movies/<int:pk>", views.MovieDetailView.as_view()),    
-    path("reviews", views.ReviewListView.as_view()),
-    path("reviews/<int:pk>", views.ReviewDetailView.as_view())
+    path("movies", views.MovieListView.as_view()),  # GET, POST
+    path("movies/<int:pk>", views.MovieDetailView.as_view()),  # GET, PUT, DELETE  
+    path("reviews", views.ReviewListView.as_view()),  # GET, POST
+    path("reviews/<int:pk>", views.ReviewDetailView.as_view())  # GET, PUT, DELETE
 ]
