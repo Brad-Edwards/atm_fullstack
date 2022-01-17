@@ -5,19 +5,17 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 
 from movies.models import Movie, Review
-from movies.serializers import MovieSerializer
+from movies.serializers import MovieSerializer, ReviewSerializer
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 
-@api_view(['GET', 'POST', 'DELETE'])
-def movie_list(request):
-    if request.method == 'GET':
-        movies = Movies.objects.all()
+class MovieListView(APIView):
+    def get(self, request, format=None):
+        movies = Movie.objects.all()                                  
+        movie_serializer = MovieSerializer(movies, many=True)
+        return JsonResponse(movie_serializer.data, safe=False)
 
-        title = request.GET.get('title', None)
-        if title is not None:
-            movies = movies.filter(title__icontains=title)
-
-    elif request.method == 'POST':
+    def post(self, request, format=None):
         movie_data = JSONParser().parse(request)
         movie_serializer = MovieSerializer(data=movie_data)
 
@@ -26,18 +24,22 @@ def movie_list(request):
             return JsonResponse(movie_serializer.data, status=status.HTTP_201_CREATED)
         return JsonResponse(movie_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def movie_detail(request, pk):
-    try: 
-        tutorial = Tutorial.objects.get(pk=pk) 
-    except Tutorial.DoesNotExist: 
-        return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND) 
 
-    if request.method == 'GET':
+class MovieDetailView(APIView):
+    def get(self, request, pk, format=None):
+        try: 
+            movie = Movie.objects.get(pk=pk) 
+        except Movie.DoesNotExist: 
+            return JsonResponse({'message': 'The Movie does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+    
         movie_serializer = MovieSerializer(movie)
         return JsonResponse(movie_serializer.data)
 
-    elif request.method == 'PUT':
+    def put(self, request, pk, format=None):
+        try: 
+            movie = Movie.objects.get(pk=pk) 
+        except Movie.DoesNotExist: 
+            return JsonResponse({'message': 'The Movie does not exist'}, status=status.HTTP_404_NOT_FOUND) 
         movie_data = JSONParser().parse(request)
         movie_serializer = MovieSerializer(movie, data=movie_data)
 
@@ -46,24 +48,58 @@ def movie_detail(request, pk):
             return JsonResponse(movie_serializer.data)
         return JsonResponse(movie_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk, format=None):
+        try: 
+            movie = Movie.objects.get(pk=pk) 
+        except Movie.DoesNotExist: 
+            return JsonResponse({'message': 'The Movie does not exist'}, status=status.HTTP_404_NOT_FOUND) 
         movie.delete()
         return JsonResponse({'message': 'Movie was deleted successfully.'})
 
-@api_view(['GET', 'POST'])
-def review_list(request):
-    if request.method == 'GET':
-        reviews = Review.objects.all()
 
-        movie_id = request.GET.get('movie', None)
-        if movie_id is not None:
-            reviews = reviews.filter(movie=int(movie_id))    
-   
-    elif request.method == 'POST':
+class ReviewListView(APIView):
+    def get(self, request, format=None):
+        reviews = Review.objects.all()                                  
+        review_serializer = ReviewSerializer(reviews, many=True)
+        return JsonResponse(review_serializer.data, safe=False)
+
+    def post(self, request, format=None):
         review_data = JSONParser().parse(request)
-        review_serializer = MovieSerializer(data=review_data)
+        review_serializer = ReviewSerializer(data=review_data)
 
         if review_serializer.is_valid():
             review_serializer.save()
-            return JsonResponse(review_serializer.data, status=status.HTTP_201_CREATED)            
+            return JsonResponse(review_serializer.data, status=status.HTTP_201_CREATED)
         return JsonResponse(review_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ReviewDetailView(APIView):
+    def get(self, request, pk, format=None):
+        try: 
+            review = Review.objects.get(pk=pk) 
+        except Review.DoesNotExist: 
+            return JsonResponse({'message': 'The Review does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+    
+        review_serializer = ReviewSerializer(review)
+        return JsonResponse(review_serializer.data)
+
+    def put(self, request, pk, format=None):
+        try: 
+            review = Review.objects.get(pk=pk) 
+        except Review.DoesNotExist: 
+            return JsonResponse({'message': 'The Review does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+        review_data = JSONParser().parse(request)
+        review_serializer = ReviewSerializer(review, data=review_data)
+
+        if review_serializer.is_valid():
+            review_serializer.save()
+            return JsonResponse(review_serializer.data)
+        return JsonResponse(review_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        try: 
+            review = Review.objects.get(pk=pk) 
+        except Review.DoesNotExist: 
+            return JsonResponse({'message': 'The Review does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+        review.delete()
+        return JsonResponse({'message': 'Review was deleted successfully.'})

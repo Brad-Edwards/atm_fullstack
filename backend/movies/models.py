@@ -33,34 +33,6 @@ class Movie(models.Model):
         return f"{self.title} {self.release_year.strftime('%Y')}"
 
 
-class MovieDataStore(models.Model):
-    """Represents a third-party source for data about movies.
-
-    Attributes
-    ----------
-    api_key : str
-        API key for access to the movie data store.
-    name : str
-        Name of the movie data store.
-    url : str
-        URL of the movie data store.
-    """
-
-    name = models.CharField(max_length=255)
-    api_key = models.CharField(max_length=255, blank=True, null=True)
-    url = models.CharField(max_length=255)
-
-    def __str__(self):
-        """Returns a human readable display name for the model.
-
-        Returns
-        -------
-        str
-            admin name as ``[movie store name (i.e. OMDB)]``.
-        """
-        return self.name
-
-
 class Review(models.Model):
     """Represents a review left by a user.
 

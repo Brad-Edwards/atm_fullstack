@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'movies.apps.MoviesConfig',
+    'postman',
+    'movies.tests',
 ]
 
 MIDDLEWARE = [
@@ -128,7 +130,33 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = (
+CORS_ALLOWED_ORIGINS = (
+    'http://localhost',
+    'http://127.0.0.1',
     'http://localhost:8080',
     'http://127.0.0.1:8080',
 )
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost',
+    'http://127.0.0.1',
+    'http://localhost:8080',
+    'http://127.0.0.1:8080',
+)
+CORS_ALL_HEADERS = [
+    "accept",
+    "accept-enconding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+CORS_ALLOW_CREDENTIALS = True
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost',
+    'http://127.0.0.1',
+    'http://localhost:8080',
+    'http://127.0.0.1:8080',
+]

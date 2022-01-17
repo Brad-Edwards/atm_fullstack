@@ -23,4 +23,5 @@ class ReviewSerializer(serializers.ModelSerializer):
             "id",
             "movie",
             "date",
+            "rating",
         )
