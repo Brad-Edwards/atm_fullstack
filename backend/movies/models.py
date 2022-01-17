@@ -22,7 +22,7 @@ class Movie(models.Model):
 
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
-    release_year = models.DateField()
+    release_year = models.IntegerField()
     duration = models.IntegerField(blank=True, null=True)
     poster_uri = models.CharField(max_length=255, blank=True, null=True)
     last_admin_update = models.DateField(blank=True, null=True)

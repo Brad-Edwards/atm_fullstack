@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+import datetime
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
@@ -9,6 +9,7 @@ from movies.serializers import MovieSerializer, ReviewSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 
+# TODO: view tests
 class MovieListView(APIView):
     """A list of movies, optionally filtered by partial title"""
     def get(self, request, format=None):
@@ -43,7 +44,12 @@ class MovieListView(APIView):
             Thrown if movie JSON data cannot be parsed.
         """
         movie_data = JSONParser().parse(request)
+        release_year = request.POST.get('release_year', None)
         movie_serializer = MovieSerializer(data=movie_data)
+
+        if release_year < 1900 or release_year > int(datetime.today().strftime("%Y")) + 10:
+            return JsonResponse(movie_serializer.errors, status.HTTP_400_BAD_REQUEST)
+        
 
         if movie_serializer.is_valid():
             movie_serializer.save()
@@ -124,13 +130,12 @@ class MovieDetailView(APIView):
         movie.delete()
         return JsonResponse({'message': 'Movie was deleted successfully.'})
 
-
+#TODO: filter on movie 
 class ReviewListView(APIView):
     "A list of reviews"
     def get(self, request, format=None):
         """Handles GET requests for all reviews
-        // TODO: filter on movie 
-        
+                
         Paramaters
         ----------
         request : Request

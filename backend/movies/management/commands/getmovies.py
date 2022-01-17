@@ -114,7 +114,7 @@ class Command(BaseCommand):
                         description=data["Plot"],
                         duration=runtime,
                         poster_uri=data["Poster"],
-                        release_year=f"{data['Year']}-01-01",
+                        release_year=data['Year'],
                         title=data["Title"],
                     )
 
