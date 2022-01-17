@@ -1,3 +1,9 @@
+<!--
+  AddMovie.vue
+
+  This component displays an add movie form and submits it for 
+  addition to the database.
+-->
 <template>
   <div class="submit-form">
     <div v-if="!submitted">
@@ -89,7 +95,8 @@ export default {
   },
   methods: {
     saveMovie() {
-      this.movie.release_year += "-01-01"
+      // Saves a movie to the database.
+      this.movie.release_year;
       var data = {
         title: this.movie.title,
         description: this.movie.description,
@@ -108,8 +115,8 @@ export default {
           console.log(e);
         });
     },
-    
     newMovie() {
+      // Resets the form after a movie is subbmite
       this.submitted = false;
       this.movie = {};
     }

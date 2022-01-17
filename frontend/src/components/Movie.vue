@@ -71,6 +71,7 @@ export default {
   },
   methods: {
     getMovie(id) {
+      // Gets a movie by its database ID
       MovieDataService.get(id)
         .then(response => {
           this.currentMovie = response.data;
@@ -80,29 +81,8 @@ export default {
           console.log(e);
         });
     },
-
-    updatePublished(status) {
-      var data = {
-        id: this.currentMovie.id,
-        title: this.currentMovie.title,
-        release_year: this.currentMovie.release_year,
-        duration: this.currentMovie.duration,
-        description: this.currentMovie.description,
-        poster_uri: this.currentMovie.poster_uri,        
-      };
-
-      MovieDataService.update(this.currentMovie.id, data)
-        .then(response => {
-          console.log(response.data);
-          this.currentMovie.published = status;
-          this.message = 'The status was updated successfully!';
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-
     updateMovie() {
+      // Updates a movie in the database.
       MovieDataService.update(this.currentMovie.id, this.currentMovie)
         .then(response => {
           console.log(response.data);
@@ -112,8 +92,8 @@ export default {
           console.log(e);
         });
     },
-
     deleteMovie() {
+      // Deletes a movie from the database.
       MovieDataService.delete(this.currentMovie.id)
         .then(response => {
           console.log(response.data);

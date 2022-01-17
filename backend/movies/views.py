@@ -141,7 +141,12 @@ class ReviewListView(APIView):
         request : Request
             The HTTP request received from the client.
             """
-        reviews = Review.objects.all()                                  
+        reviews = Review.objects.all()
+
+        movie_id = request.GET.get('id', None)
+        if movie_id is not None:
+            reviews = Review.objects.filter(movie=movie_id)
+
         review_serializer = ReviewSerializer(reviews, many=True)
         return JsonResponse(review_serializer.data, safe=False)
 

@@ -1,6 +1,10 @@
 import http from "../../http-common";
 
 class MovieDataService {
+  /*
+    Handles the exchange of movie data with the 
+    database.
+  */
   getAll() {
     return http.get("/movies");
   }
