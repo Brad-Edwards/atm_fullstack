@@ -1,8 +1,8 @@
 # Ensemble Full-Stack Project
-Author: Brad Edwards
-Email: j.bradley.edwards@gmail.com
-Github: https://github.com/Brad-Edwards/atm_fullstack
-License: MIT
+Author:  Brad Edwards
+Email:  j.bradley.edwards@gmail.com
+Github:  https://github.com/Brad-Edwards/atm_fullstack
+License:  MIT
 
 First of all, thank you for the opportunity to do this project for Ensemble Systems. And thank you
 even more for taking the taking to review it.
