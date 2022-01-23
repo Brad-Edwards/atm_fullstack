@@ -4,9 +4,6 @@ Email: j.bradley.edwards@gmail.com\
 Github: https://github.com/Brad-Edwards/atm_fullstack\
 License: MIT
 
-First of all, thank you for the opportunity to do this project for Ensemble Systems. And thank you
-even more for taking the taking to review it.
-
 ## Back End - Python, django
 
 The back end was implemented in Python using django to take advantage of its excellent CRUD support, 
@@ -73,10 +70,3 @@ CI/CD pipeline.
 goes so far and there might be all kinds of personalization or added features that would make sense for mobile
 users. In any event, I have used Xamarin for an iOS application as a school project and I am confident I could
 get up to speed for native, React Native, or Flutter development.
-
-# Thanks Again
-
-Once again, I appreciate you taking the time to review this project. I hope to speak with you and your team soon.
-
-All the best,
-Brad
