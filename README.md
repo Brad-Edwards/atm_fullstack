@@ -1,4 +1,4 @@
-# Ensemble Full-Stack Project
+# Short Full-Stack Project
 Author: Brad Edwards\
 Email: j.bradley.edwards@gmail.com\
 Github: https://github.com/Brad-Edwards/atm_fullstack\
